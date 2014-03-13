@@ -1,0 +1,76 @@
+body {
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+}
+#arena {
+  width: 400px;
+  height: 300px;
+  border: 3px double orange;
+  background-color: antiquewhite;
+  position: absolute;
+  top: 0px;
+  left: 10px;
+}
+#help {
+  width: 200px;
+  height: 490px;
+  position: absolute;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  top: 0px;
+  left: 420px;
+  overflow: scroll;
+}
+#help h2 {
+  font-size: 12pt;
+  padding: 0px 0px 0px 15px;
+  margin: 0px;
+  border: 0px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+#help p {
+  padding: 0px;
+  margin: 0px 0px 10px 0px;;
+}
+#control {
+  width: 400px;
+  background-color: gray;
+  border: 2px solid orange;
+  position: absolute;
+  top: 310px;
+  left: 10px;
+}
+#history {
+  height: 10em;
+  background-color: #ff0;
+  text-align: left;
+  margin: 0px;
+  font-family: courier;
+  list-style: none;
+  padding: 0px 5px 0px 5px;
+}
+#command {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+.ball,
+.rect {
+  position: absolute;  
+  top: -100px;
+  left: -100px;
+  background-color: #00f;
+}
+.ball {
+  width: 5px;
+  height: 5px;
+  border-radius: 2.5px;
+}
+.rect {
+  width: 50px;
+  height: 50px;
+}
