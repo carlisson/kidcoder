@@ -1,6 +1,6 @@
 
 document.addEvent("domready", function() {
-	function game_start() {
+	kidcoder_info("rules", function () {
 	  var ball = new Thing("arena", "ball");
 	  var rect = new Thing("arena", "rect");
 	  rect.size = [50, 50];
@@ -51,21 +51,5 @@ document.addEvent("domready", function() {
 	  cline.setHistory("history");
 	  cline.build();
 	  $("command").focus();
-  }
-  var rules_txt = $("rules").get("text") + " Clique para continuar.";
-  $("rules").set("text", "");
-  var rules_prg = 0;
-  var rules_fin = rules_txt.length;
-  var rules_int = window.setInterval(function() {
-	  if (rules_prg < rules_fin -1) {
-		  rules_prg++;
-		  $("rules").appendText(rules_txt[rules_prg]);
-	  } else {
-		  window.clearInterval(rules_int);
-		  $("rules").addEvent("click", function() {
-			  $("rules").tween("margin-left", -630);
-			  game_start();
-		  });
-	  }
-  }, 70);
+  });
 });

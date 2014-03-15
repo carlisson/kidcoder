@@ -16,15 +16,15 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=7
+current_page=3
 FILE_NAME_0=23;Markdown;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/README.md;0;4
 FILE_NAME_1=324;None;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/kidcoder.geany-project;0;4
-FILE_NAME_2=455;HTML;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/main.html;0;4
-FILE_NAME_3=1167;CSS;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/style/kidcoder.css;0;4
-FILE_NAME_4=0;Javascript;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/script/kidcoder.js;0;4
-FILE_NAME_5=3150;Javascript;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/script/codestage.js;0;4
+FILE_NAME_2=565;HTML;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/main.html;0;4
+FILE_NAME_3=1202;CSS;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/style/kidcoder.css;0;4
+FILE_NAME_4=1729;Javascript;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/script/kidcoder.js;0;4
+FILE_NAME_5=27;Javascript;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/script/codestage.js;0;4
 FILE_NAME_6=0;Javascript;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/script/commandline.js;0;4
-FILE_NAME_7=1868;Javascript;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/script/thing.js;0;4
+FILE_NAME_7=1725;Javascript;0;16;1;1;0;/home/carlisson/Box/sources/own/kidcoder/script/thing.js;0;4
 
 [VTE]
 last_dir=/home/carlisson/Box/sources/own/kidcoder
