@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Code Arena - interpretador de comandos" />
+  <meta charset="utf-8">
+	<link rel="stylesheet" href="../style/kidcoder.css" rel="stylesheet" type="text/css" />
+	  <title>Code Arena</title>
+  <style>
+	  #intro {
+		  background-color: #0000FF;
+		  color: #0000FF;
+		  z-index: 120;
+	  }
+	  #avatar {
+		  background-color: #00009B;
+		  color: #00009B;
+		  z-index: 110;
+	  }
+	  mission {
+		  background-color: #000037;
+		  color: #000037;
+		  z-index: 100;
+	  }
+  </style>
+  <script src="http://box.bardo.ws/api/mootools-core-1.4.5-full-nocompat.js"></script>
+  <script src="../script/codestage.js"></script>
+  <script src="../script/commandline.js"></script>
+  <script src="../script/thing.js"></script>
+  <script src="../script/info.js"></script>
+  <script>
+document.addEvent("domready", function() {
+	kidcoder_info("intro", function () {
+		kidcoder_info("avatar", function() {
+			kidcoder_info("mission", function() {
+				alert("Jogo começa aqui");
+			});
+		});
+  });
+});
+  </script>
+</head>
+<body>
+	<div id="intro" class="info">
+	Ano de 2025. Um supercomputador foi criado para gerenciar todos os
+	dispositivos computadorizados que tomam conta do mundo. Porém, algo
+	deu errado e ele se voltou contra seus criadores, iniciando um
+	domínio global.</div>
+	<div id="avatar" class="info">
+	Você é um jovem piloto de um robô chamado CyberSnake. Por ter sido
+	feito para ser operado por máquinas e não por pessoas, seus controles
+	respondem apenas a comandos feitos usando uma linguagem de
+	programação. CyberSnake é sua única arma.</div>
+	<div id="mission" class="info">
+	Seu objetivo é desconhecido.</div>
+</body>
+</html>

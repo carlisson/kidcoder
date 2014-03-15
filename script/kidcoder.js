@@ -35,7 +35,7 @@ document.addEvent("domready", function() {
 		  $("arena").highlight(ball.color);
 		}
 	  }, "Dispara um tiro no alvo");
-	  ballStage.setVar("azul", "#0000ff");
+/*	  ballStage.setVar("azul", "#0000ff");
 	  ballStage.setVar("vermelho", "#ff0000");
 	  ballStage.setVar("verde", "#00ff00");
 	  ballStage.setVar("branco", "#ffffff");
@@ -44,7 +44,7 @@ document.addEvent("domready", function() {
 		console.log(args);
 		ball.color = args[0];
 	  }, "Muda a cor da bola");
-	  ballStage.buildHelp("help");
+*/	  ballStage.buildHelp("help");
 	  var cline = new CommandLine("command", function(c) {
 		return ballStage.exec(c);
 	  });

@@ -75,16 +75,19 @@ body {
   height: 50px;
 }
 .info {
-  width:630px;
-  height: 300px;
+  width:600px;/* real: 630 */
+  height: 380px; /* real: 500 */
   display: block;
   z-index: 100;
   background-color: blue;
+  color: blue;
   position: absolute;
   top: 0px;
   left: 0px; 
   margin_left: 0px;
-  padding-top: 200px;
+  padding: 100px 15px 20px 15px;
   font-size: 16pt;
   font-family: monospace;
+  font-weight: bold;
+  text-align: left;
 }

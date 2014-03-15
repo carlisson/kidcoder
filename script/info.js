@@ -1,6 +1,7 @@
 function kidcoder_info(did, fnc) {
   var did_txt = $(did).get("text") + " Clique para continuar.";
   $(did).set("text", "");
+  $(did).setStyle("color", "#ffffff");
   var did_prg = 0;
   var did_fin = did_txt.length;
   var did_int = window.setInterval(function() {
@@ -11,7 +12,7 @@ function kidcoder_info(did, fnc) {
 		  window.clearInterval(did_int);
 		  $(did).addEvent("click", function() {
 			  $(did).tween("margin-left", -630);
-			  fnc();
+			  setTimeout(fnc, 1000);
 		  });
 	  }
   }, 70);
