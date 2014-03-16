@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Code Arena - interpretador de comandos" />
+  <meta charset="utf-8">
+	<link rel="stylesheet" href="../style/kidcoder.css" rel="stylesheet" type="text/css" />
+	  <title>Code Arena</title>
+  <style>
+	  #intro {
+		  background-color: #0000FF;
+	  }
+	  #win {
+		  background-color: #2A7E2A;
+		  color: #ffffff;
+		  z-index: 120;
+		  margin-top: -630px;
+	  }
+  </style>
+  <script src="http://box.bardo.ws/api/mootools-core-1.4.5-full-nocompat.js"></script>
+  <script src="../script/codestage.js"></script>
+  <script src="../script/commandline.js"></script>
+  <script src="../script/thing.js"></script>
+  <script src="../script/info.js"></script>
+  <script>
+document.addEvent("domready", function() {
+	kidcoder_info("rules", function () {
+		var bullet = {
+			pos: [0, 0],
+			size: [1, 1]
+		};
+	  var aim = new Thing("arena", "sprite");
+	  aim.setImage("../images/aim.png", 90, 90, 1, 1);
+	  aim.pos = [200 - 45, 150 - 45];
+	  aim.size = [70, 70];
+	  aim.reflexion = 0;
+	  aim.addIterate(function() {
+		  bullet.pos = [aim.pos[0] + 45, aim.pos[1] + 45];
+	  });
+	  var robot = new Thing("arena", "sprite");
+	  robot.setImage("../images/ballrobot.png", 50, 50, 2, 1);
+	  robot.addIterate(function() {
+		  var ic = (robot.velocity[0] > 0) ? 1 : 0;
+		  robot.setCrop(ic, 0);
+	  });
+	  robot.friction = 1;
+	  robot.pos = [100, 300];
+	  robot.velocity = [3, 0];
+	  robot.layer = 5;
+	  aim.animate();
+	  robot.animate();
+	  var aimStage = new CodeStage();
+	  aimStage.addCommand("left", function(args) {
+		aim.accel(-3, 0);
+	  }, "Movimenta a mira para a esquerda");
+	  aimStage.addCommand("right", function(args) {
+		aim.accel(3, 0);
+	  }, "Movimenta a mira para a direita");
+	  aimStage.addCommand("up", function(args) {
+		aim.accel(0, -3);
+	  }, "Movimenta a mira para cima");
+	  aimStage.addCommand("down", function(args) {
+		aim.accel(0, 3);
+	  }, "Movimenta a mira para baixo");
+	  aimStage.addCommand("stop", function(args) {
+		aim.stop();
+	  }, "Para a mira imediatamente");
+	  aimStage.addCommand("shot", function(args) {
+		  console.log("Teste de colisão. Robô: " + robot.pos + " de " + robot.size + " com tiro em " + bullet.pos + " de " + bullet.size);
+		if (robot.collision(bullet)){ 
+		  $("arena").highlight(robot.color);
+		  cline.print("Bom trabalho!");
+		} else {
+		  $("arena").highlight(aim.color);
+		}
+	  }, "Dispara um tiro no alvo");
+	  aimStage.buildHelp("help");
+	  var cline = new CommandLine("command", function(c) {
+		return aimStage.exec(c);
+	  });
+	  cline.setHistory("history");
+	  cline.build();
+	  $("command").focus();
+  });
+});
+  </script>
+</head>
+<body>
+	<div id="rules" class="info">
+	Agora você precisa acertar o robô que vigia a entrada da fortaleza
+	usando os canhões do CyberSnake. Movimente os canhões e dispare
+	quando estiver no alvo.</div>
+  <aside id="help"></aside>
+  <div id="arena" class="castle"></div>
+  <div id="control">
+    <ol id="history">
+      <li>Movimente a mira com comandos direcionais</li>
+      <li> (por exemplo, left()) e dispare com shot().</li>
+    </ol>
+    <input type="text" id="command">
+  </div>
+</body>
+</html>

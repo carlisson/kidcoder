@@ -12,9 +12,13 @@ body {
   position: absolute;
   top: 0px;
   left: 10px;
+  overflow: hidden;
 }
 #arena.skyline {
   background-image: url(../images/skyline.png);
+}
+#arena.castle {
+  background-image: url(../images/castelo.png);
 }
 #help {
   width: 200px;

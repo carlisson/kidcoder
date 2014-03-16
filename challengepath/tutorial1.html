@@ -36,7 +36,7 @@ document.addEvent("domready", function() {
 		  if (cyberSnake.pos[0] === 0) {
 			  cyberSnake.stopAnimation();
 			  kidcoder_congratulate("win", function() {
-				  console.log("Agora vamos para outra página");
+				  window.location = "tutorial2.html";
 		      });
 		  }
 	  });
