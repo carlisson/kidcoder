@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Code Arena - interpretador de comandos" />
+  <meta charset="utf-8">
+	<link rel="stylesheet" href="../style/kidcoder.css" rel="stylesheet" type="text/css" />
+	  <title>Code Arena</title>
+  <style>
+	  #intro {
+		  background-color: #0000FF;
+		  color: #0000FF;
+		  z-index: 120;
+	  }100;
+	  }
+  </style>
+  <script src="http://box.bardo.ws/api/mootools-core-1.4.5-full-nocompat.js"></script>
+  <script src="../script/codestage.js"></script>
+  <script src="../script/commandline.js"></script>
+  <script src="../script/thing.js"></script>
+  <script src="../script/info.js"></script>
+  <script>
+document.addEvent("domready", function() {
+	kidcoder_info("intro", function () {
+	  var cyberSnake = new Thing("arena", "sprite");
+	  cyberSnake.setImage("../images/cybersnake-onoff.png", 200, 200, 2, 1);
+	  cyberSnake.pos = [400, 400];
+	  cyberSnake.setCrop(1, 0);
+	  cyberSnake.animate();
+	  var cyberStage = new CodeStage();
+	  cyberStage.setVar("on", "0x875");
+	  cyberStage.setVar("off", "0x000");
+	  cyberStage.addCommand("turn", function(args) {
+		if (args.length == 1) {
+			if (args[0] == "0x875") {
+				this.setCrop(0, 0);
+				cline.print("CyberSnake esperando ordens.");
+			} else if (args[0] == "0x000") {
+				this.setCrop(1, 0);
+				cline.print("CyberSnake desligado.");
+			} else {
+				cline.print("Não sei o que fazer");
+			}
+		} else {
+			cline.print("Número errado de parâmetros. Use turn(on) ou turn(off).");
+		}
+	  }.bind(cyberSnake), "Liga ou desliga o robô");
+	  cyberStage.addCommand("move", function(args) {
+		cline.print("Movendo o robô");
+	  }, "Faz o robô caminhar");
+	  cyberStage.buildHelp("help");
+	  var cline = new CommandLine("command", function(c) {
+		return cyberStage.exec(c);
+	  });
+	  cline.setHistory("history");
+	  cline.build();
+	  $("command").focus();
+		
+  });
+});
+  </script>
+</head>
+<body>
+	<div id="intro" class="info">
+	Primeiro, os comandos básicos. Você precisa ligar o robô e fazê-lo
+	andar.</div>
+  <aside id="help"></aside>
+  <div id="arena" class="skyline"></div>
+  <div id="control">
+    <ol id="history">
+      <li>Comandos são escritos na forma comando() ou comando(opção).</li>
+    </ol>
+    <input type="text" id="command" placeholder=">>>">
+  </div></body>
+</html>
