@@ -14,7 +14,7 @@ var CommandLine = new Class({
   },
   print: function(msg) {
     if (this.historyID) {
-      if ($$("#" + this.historyID + " li").length > 7) {
+      if ($$("#" + this.historyID + " li").length > 9) {
         $$("#" + this.historyID + " li")[0].destroy();
       }
       $(this.historyID).adopt(new Element("li").appendText(msg));

@@ -8,9 +8,12 @@
   <style>
 	  #intro {
 		  background-color: #0000FF;
-		  color: #0000FF;
+	  }
+	  #win {
+		  background-color: #2A7E2A;
+		  color: #ffffff;
 		  z-index: 120;
-	  }100;
+		  margin-top: -630px;
 	  }
   </style>
   <script src="http://box.bardo.ws/api/mootools-core-1.4.5-full-nocompat.js"></script>
@@ -24,7 +27,19 @@ document.addEvent("domready", function() {
 	  var cyberSnake = new Thing("arena", "sprite");
 	  cyberSnake.setImage("../images/cybersnake-onoff.png", 200, 200, 2, 1);
 	  cyberSnake.pos = [400, 400];
+	  cyberSnake.reflexion = -1;
 	  cyberSnake.setCrop(1, 0);
+	  cyberSnake.on = function() {
+		  return (this.crop[0] === 0);
+	  };
+	  cyberSnake.addIterate(function() {
+		  if (cyberSnake.pos[0] === 0) {
+			  cyberSnake.stopAnimation();
+			  kidcoder_congratulate("win", function() {
+				  console.log("Agora vamos para outra página");
+		      });
+		  }
+	  });
 	  cyberSnake.animate();
 	  var cyberStage = new CodeStage();
 	  cyberStage.setVar("on", "0x875");
@@ -36,6 +51,7 @@ document.addEvent("domready", function() {
 				cline.print("CyberSnake esperando ordens.");
 			} else if (args[0] == "0x000") {
 				this.setCrop(1, 0);
+				this.friction = 0.9;
 				cline.print("CyberSnake desligado.");
 			} else {
 				cline.print("Não sei o que fazer");
@@ -45,8 +61,22 @@ document.addEvent("domready", function() {
 		}
 	  }.bind(cyberSnake), "Liga ou desliga o robô");
 	  cyberStage.addCommand("move", function(args) {
-		cline.print("Movendo o robô");
-	  }, "Faz o robô caminhar");
+		  if (this.on()) {
+			this.accel(-3, 0);
+			this.friction = 1.0;
+			cline.print("Movendo o robô");
+		  } else {
+			cline.print("Não pode mover o robô desligado.");
+		  }
+	  }.bind(cyberSnake), "Faz o robô caminhar");
+	  cyberStage.addCommand("stop", function(args) {
+		  if (this.on()) {
+			this.friction = 0.7;
+			cline.print("Acionando freios.");
+		} else {
+			cline.print("Robô está desligado.");
+		}
+	  }.bind(cyberSnake), "Aciona freios do robô.");
 	  cyberStage.buildHelp("help");
 	  var cline = new CommandLine("command", function(c) {
 		return cyberStage.exec(c);
@@ -63,6 +93,9 @@ document.addEvent("domready", function() {
 	<div id="intro" class="info">
 	Primeiro, os comandos básicos. Você precisa ligar o robô e fazê-lo
 	andar.</div>
+	<div id="win" class="info">
+		Excelente trabalho!
+	</div>
   <aside id="help"></aside>
   <div id="arena" class="skyline"></div>
   <div id="control">

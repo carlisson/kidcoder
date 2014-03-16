@@ -17,3 +17,14 @@ function kidcoder_info(did, fnc) {
 	  }
   }, 70);
 }
+
+function kidcoder_congratulate(did, fnc) {
+  $(did).appendText(" Clique para continuar.");
+  $(did).setStyle("margin-top", -500);
+  $(did).setStyle("color", "#ffffff");
+  $(did).tween("margin-top", 0);
+  $(did).addEvent("click", function() {
+	  $(did).tween("margin-top", -500);
+	  setTimeout(fnc, 1000);
+  });
+}

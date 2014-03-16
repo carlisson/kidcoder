@@ -7,9 +7,15 @@ var Thing = new Class({
 	velocity: [0, 0],
 	layer: 10,
 	maxVelocity: 50,
+	reflexion: 1,
 	friction: 0.98,
 	color: "#ff0000",
 	element: false,
+	iterates: [],
+	animateControl: false,
+	addIterate: function(f) {
+		this.iterates.push(f);
+	},
 	accel: function(vx, vy) {
 		if ((this.velocity[0] + vx > this.maxVelocity) || (this.velocity[0] + vx < -20))
 			this.velocity[0] *= -1;
@@ -30,31 +36,33 @@ var Thing = new Class({
 		var x = this.pos[0] + this.velocity[0];
 		if (x < 0) {
 			x = 0;
-			this.velocity[0] *= -1;
+			this.velocity[0] *= -1 * this.reflexion;
 		} else if (x > 400 - this.size[0]) {
 			x = 400 - this.size[0];
-			this.velocity[0] *= -1;
+			this.velocity[0] *= -1 * this.reflexion;
 		}
 		var y = this.pos[1] + this.velocity[1];
 		if (y < 0) {
 			y = 0;
-			this.velocity[1] *= -1;
+			this.velocity[1] *= -1 * this.reflexion;
 		} else if (y > 300 - this.size[1]) {
 			y = 300 - this.size[1];
-			this.velocity[1] *= -1;
+			this.velocity[1] *= -1 * this.reflexion;
 		}
 		this.pos = [x, y];
 		if (this.style == "sprite") {
 			
 			var opcrop = (this.crop[0] === 0) ? "0 " : "-" + (this.crop[0] * this.size[0]) + "px ";
 			opcrop += (this.crop[1] === 0) ? "0": (this.crop[1] * this.size[1]) + "px";
-			console.log(opcrop);
 			this.element.setStyle("background-position", opcrop);
 		} else {
 			this.element.setStyle("background-color", this.color);
 		}
 		this.element.setStyle("top", this.pos[1]);
 		this.element.setStyle("left", this.pos[0]);
+		this.iterates.each(function (i) {
+			i();
+		});
 	},
 	initialize: function(domid, style) {
 		this.element = new Element("div", {"class": style});
@@ -82,8 +90,11 @@ var Thing = new Class({
 	},
 	animate: function() {
 		this.element.setStyle("z-index", this.layer);
-		window.setInterval(function() {
+		this.animateControl = window.setInterval(function() {
 			this.update();
 		}.bind(this), 100);
+	},
+	stopAnimation: function() {
+		window.clearInterval(this.animateControl);
 	}
 });
