@@ -10,6 +10,7 @@ var Thing = new Class({
 	reflexion: 1,
 	friction: 0.98,
 	color: "#ff0000",
+	mother: false,
 	element: false,
 	iterates: [],
 	animateControl: false,
@@ -64,10 +65,14 @@ var Thing = new Class({
 			i();
 		});
 	},
+	renewElement: function() {
+		this.element = new Element("div", {"class": this.style});
+		$(this.mother).adopt(this.element);
+	},
 	initialize: function(domid, style) {
-		this.element = new Element("div", {"class": style});
+		this.mother = domid;
 		this.style = style;
-		$(domid).adopt(this.element);
+		this.renewElement();
 	},
 	setImage: function(img, width, height, cols, rows) {
 		this.element.setStyle("background-repeat", "no-repeat");

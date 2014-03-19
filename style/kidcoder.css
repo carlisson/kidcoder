@@ -70,6 +70,7 @@ body {
   background-image: url(../images/darkeditor.png);
   color: #ff0;
 }
+.fired,
 .ball,
 .rect,
 .sprite {
@@ -78,7 +79,8 @@ body {
   left: -400px;
   background-color: #00f;
 }
-.ball {
+.ball,
+.fired {
   width: 5px;
   height: 5px;
   border-radius: 2.5px;
@@ -116,5 +118,14 @@ body {
   background-color: green;
   color: white;
   text-align: center;
+  margin-top: -630px;
+}
+#intro {
+  background-color: #0000FF;
+}
+#win {
+  background-color: #2A7E2A;
+  color: #ffffff;
+  z-index: 120;
   margin-top: -630px;
 }
