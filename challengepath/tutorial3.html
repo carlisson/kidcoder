@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Code Arena - interpretador de comandos" />
+  <meta charset="utf-8">
+	<link rel="stylesheet" href="../style/kidcoder.css" rel="stylesheet" type="text/css" />
+	  <title>Code Arena</title>
+  <script src="http://box.bardo.ws/api/mootools-core-1.4.5-full-nocompat.js"></script>
+  <script src="../script/codestage.js"></script>
+  <script src="../script/commandline.js"></script>
+  <script src="../script/thing.js"></script>
+  <script src="../script/info.js"></script>
+  <script>
+document.addEvent("domready", function() {
+	kidcoder_info("rules", function () {
+	  var keyStage = new CodeStage();
+	  keyStage.addCommand("open", function(args) {
+		if (keyStage.getType("user") === "undefined") {
+			cline.print("Erro! Não consegui acessar variável user");
+		} else if (keyStage.getType("user") === "string") {
+			var user = keyStage.getVar("user");
+			cline.print("Seja bem-vindo, robô " + user + "!");
+		} else {
+			cline.print("Erro\612 - Variável user tem tipo de dado não suportado!");
+		}
+	  }, "Abre o portão");
+	  keyStage.buildHelp("help");
+	  var cline = new CommandLine("command", function(c) {
+		return keyStage.exec(c);
+	  });
+	  cline.setHistory("history");
+	  cline.build();
+	  $("command").focus();
+  });
+});
+  </script>
+</head>
+<body>
+	<div id="rules" class="info">
+	O portão está danificado, mas você consegue se conectar ao computador
+	que controla seu acesso. Tente abrir o portão para poder entrar.</div>
+	<div id="win" class="info">
+		Parabéns!
+	</div>
+  <aside id="help"></aside>
+  <div id="arena" class="castle"></div>
+  <div id="control">
+    <ol id="history">
+      <li>Controles do portão aparentemente danificados.</li>
+    </ol>
+    <input type="text" id="command">
+  </div>
+</body>
+</html>

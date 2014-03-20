@@ -1,10 +1,19 @@
 var CodeStage = new Class({
   commands: {},
   memory: {},
-  commandRE: /^(\w+(?:\w|\d)+)\((.*)?\)$/,
+  nameRE: /^(\w+(?:\w|\d)*)$/,
+  commandRE: /^(\w+(?:\w|\d)*)\((.*)?\)$/,
   numberRE: /^((\d+)\.?(\d+)?|\.(\d)+)$/,
   stringRE: /^(\".*\")|(\'.*\')$/,
+  attribRE: /^(\w+(?:\w|\d)*)=(.*)$/,
   initialize: function() {
+  },
+  refreshRE: function() {
+	  this.nameRE.lastIndex = -1;
+	  this.commandRE.lastIndex = -1;
+	  this.numberRE.lastIndex = -1;
+	  this.stringRE.lastIndex = -1;
+	  this.attribRE.lastIndex = -1;
   },
   addCommand: function(k, fnc, help) {
     this.commands[k] = {
@@ -14,7 +23,36 @@ var CodeStage = new Class({
     };
   },
   setVar: function(v, val) {
-    this.memory[v] = val;
+	  this.refreshRE();
+	  if (this.numberRE.exec(val) || this.stringRE.exec(val)) {
+		this.memory[v] = val;
+	  } else if (this.nameRE.exec(val)) {
+		if (this.memory[val]) {
+			this.memory[v] = this.memory[val];
+		} else {
+			return "Variável " + val + " não encontrada.";
+		}
+	} else {
+		return "Valor estranho para atribuição.";
+	}
+	return "";
+  },
+  getType: function(v) {
+	  if (this.memory[v]) {
+		  if (this.numberRE.exec(this.memory[v])) {
+			  return "number";
+		  } else if (this.stringRE.exec(this.memory[v])) {
+			  return "string";
+		  } else {
+			  return "unknown";
+		  }
+	  } else {
+		  return "undefined";
+	  }
+	  return "";
+  },
+  getVar: function(v) {
+	  return this.memory[v];
   },
   buildHelp: function(helpID) {
     Object.keys(this.commands).each(function (c) {
@@ -39,6 +77,7 @@ var CodeStage = new Class({
     }
   },
   exec: function(cmd) {
+    this.refreshRE();
     var r = this.commandRE.exec(cmd),
         c = "",
         p = [],
@@ -79,8 +118,7 @@ var CodeStage = new Class({
           p_temp = "";
         }
         for (i = 0; i < p.length; i++) {
-          this.stringRE.lastIndex = -1;
-          this.numberRE.lastIndex = -1;
+          this.refreshRE();
           par = p[i].replace(/^\ +/, "").replace(/\ +$/, "");
           if (this.stringRE.test(par)) {
             p_final.push(par.slice(1, par.length -1));
@@ -104,7 +142,11 @@ var CodeStage = new Class({
       } else {
         return "Comando mal construído";
       }
-    } else {
+    } else if (this.attribRE.exec(cmd)) {
+		var v = cmd.slice(0, cmd.indexOf('='));
+		var val = cmd.slice(cmd.indexOf('=') + 1, cmd.length);
+		return this.setVar(v, val);
+	} else {
       return "Comando inválido";
     }
     return "";
